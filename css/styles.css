@@ -1,0 +1,15 @@
+.container {font-family: "Lucida Console", "Courier New", monospace;
+}
+a{
+    color: rgb(0, 0, 0);
+}
+
+
+a:hover{
+    text-decoration: none;
+    color: rgb(63, 63, 63);
+}
+
+text-footer{
+    text-align: center;
+}
