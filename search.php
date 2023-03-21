@@ -16,13 +16,10 @@
              <?php 
 
 if (isset($_POST['submit'])){
-
     $search = $_POST['search'];
-   
    
     $query = "SELECT * FROM posts WHERE post_tags LIKE '%$search%' ";
     $search_query = mysqli_query($conn ,$query);
-   
     if (!$search_query){
        die("QUERY FAILED". mysqli_error($conn));
     }
@@ -30,10 +27,8 @@ if (isset($_POST['submit'])){
    $count = mysqli_num_rows($search_query);
    if ($count == 0){
    echo "<h1>No result!</h1>";
-   } else {
-
-                $sellect_all_posts = mysqli_query($conn,"SELECT * FROM posts", MYSQLI_USE_RESULT);
-                while($row = mysqli_fetch_assoc($sellect_all_posts)){
+   } else {   
+                 while($row = mysqli_fetch_assoc($search_query)){
                   $post_title = $row['post_title'];
                   $post_author = $row['post_author'];
                   $post_date = $row['post_date'];
@@ -61,9 +56,8 @@ if (isset($_POST['submit'])){
                 <hr>
              <?php   }
 
-             }
-        
-               }
+                }
+                }
 ?>
             </div>
             <!-- Blog Sidebar Widgets Column -->

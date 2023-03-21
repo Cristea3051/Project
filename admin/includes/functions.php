@@ -12,9 +12,8 @@ function insert_categories (){
      } else {
          $query  = "INSERT INTO categories(`cat_title`) VALUE ('{$cat_title}')";
          $create_category_query = mysqli_query($conn, $query);
-         if (!$create_category_query){
-             die('QUERY FAILED'. mysqli_error($conn));
-         }
+         
+         confirm($create_category_query);
      }
        }
 }
@@ -46,6 +45,7 @@ function deleteCategories(){
         $get_cat_id = $_GET['delete'];
         $query =  "DELETE FROM categories WHERE cat_id = {$get_cat_id}";
         $delete_query = mysqli_query($conn, $query);
+        confirm($delete_query);
         header("Location: categories.php");
     }
 
@@ -109,6 +109,7 @@ function findAllPosts(){
    $post_image = $row['post_image'];
    $post_tags = $row['post_tags'];
    $post_comments = $row['post_comment_count'];
+   $post_content = $row['post_content'];
    $post_date = $row['post_date'];              
   echo "<tr>";
   echo "<td>{$post_id}</td>";
@@ -126,6 +127,7 @@ function findAllPosts(){
   echo "<td><img width = '100' src = '../images/{$post_image}'></td>";
   echo "<td>{$post_tags}</td>";
   echo "<td>{$post_comments}</td>";
+  echo "<td>{$post_content}</td>";
   echo "<td>{$post_date}</td>";
   echo "<td><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>";
   echo "<td><a href='posts.php?delete={$post_id}'>Delete</a></td>";
@@ -133,6 +135,12 @@ function findAllPosts(){
 echo "</tr>"; 
 
 }
+
+//edit post function query
+
+
+
+
 
 //delete posts query
 
@@ -142,6 +150,7 @@ function deletePosts(){
         $get_post_id = $_GET['delete'];
         $query =  "DELETE FROM posts WHERE post_id = {$get_post_id}";
         $delete_query = mysqli_query($conn, $query);
+        confirm($delete_query);
         header("Location:posts.php");
     }
 
@@ -168,7 +177,17 @@ function findAllComments(){
     $comment_date = $row['comment_date'];              
    echo "<tr>";
    echo "<td>{$comment_id}</td>";
-   echo "<td>{$comment_post_id}</td>";
+
+$query = "Select * FROM posts where post_id =  $comment_post_id ";
+$post_id_query = mysqli_query($conn, $query);
+
+while ($row = mysqli_fetch_assoc($post_id_query)){
+$post_id = $row['post_id'];
+$post_title = $row['post_title'];
+echo "<td><a href ='../post.php?p_id_=$post_id'>{$post_title}</a></td>";
+}
+
+
    echo "<td>{$comment_author}</td>";
    echo "<td>{$comment_email}</td>";
    echo "<td>{$comment_content}</td>";
@@ -177,11 +196,11 @@ function findAllComments(){
    echo "<td><a href='comments.php?de={$comment_id}'>Approve</a></td>";
    echo "<td><a href='comments.php?delete={$comment_id}'>Unapprove</a></td>";
    echo "<td><a href='comments.php?delete={$comment_id}'>Delete</a></td>";
-   echo "<td><a href='comments.php?delete={$comment_id}'>Edit</a></td>";
+}
  }
  echo "</tr>"; 
  
- }
+
 
  //delete comments query function
 

@@ -1,3 +1,8 @@
+html {
+    font-size: 14px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
 .container {font-family: "Lucida Console", "Courier New", monospace;
 }
 a{

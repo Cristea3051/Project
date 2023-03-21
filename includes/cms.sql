@@ -49,7 +49,7 @@ INSERT INTO `categories` (`cat_id`, `cat_title`) VALUES
 --
 
 CREATE TABLE `comments` (
-  `comment_id` int NOT NULL,
+  `comment_id` int NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `comment_post_id` int NOT NULL,
   `comment_author` varchar(255) NOT NULL,
   `comment_email` varchar(255) NOT NULL,

@@ -1,5 +1,5 @@
 <table class="table table-bordered table-hover">
-        <thead>
+        <thead >
             <tr>
                 <th>Id</th>
                 <th>In response to</th>

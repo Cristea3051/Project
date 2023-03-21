@@ -1,5 +1,4 @@
 <?php
- 
  if(isset($_GET['p_id'])){
     $the_get_post_id =  $_GET['p_id'];
  }
@@ -134,9 +133,4 @@ header("Location: posts.php");
       <textarea name = "post_content"   rows="20"><?php echo $posts_content;?></textarea>
     
       <button type="submit" name = "update_post">Save Post</button>
-    </form>
-    
-    
-    
-    
-   
+    </form>

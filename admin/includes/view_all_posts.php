@@ -1,5 +1,5 @@
 <table class="table table-bordered table-hover">
-        <thead>
+        <thead class="thead-dark">
             <tr>
                 <th>Id</th>
                 <th>Author</th>
@@ -9,6 +9,7 @@
                 <th>Image</th>
                 <th>Tags</th>
                 <th>Comments</th>
+                <th>Content</th>
                 <th>Date</th>
                 <th><a href="posts.php?source=add_post">Add Post</a></th>
             </tr>

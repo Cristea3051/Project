@@ -54,9 +54,7 @@
 
                 <hr>
                <?php }
-             } else {
-                echo "Something wrong";
-             }
+             } 
                ?>
             </div>
             <!-- Blog Sidebar Widgets Column -->
@@ -65,24 +63,47 @@
               
         </div>
         <!-- /.row -->
-        </div>
+        
         <hr h-25 >
                         <!-- Blog Comments -->
+
+
+                        <?php 
+                          if(isset($_POST['creat_com'])) {
+                            $p_id = $_GET['p_id_'];
+                            $com_author = $_POST['comment_author'];
+                            $com_email = $_POST['comment_email'];
+                            $com_content = $_POST['comment_content'];
+                            
+                            $query = "INSERT INTO comments( comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) 
+                            VALUES ($p_id,'{$com_author}','{$com_email}','{$com_content}','unapproved',now())";
+
+                       $create_com_query = mysqli_query($conn, $query);
+                        if (!$create_com_query){
+                            die('QUERY FAILED' . mysqli_error($conn));
+                        }
+                       
+                          }
+                        ?>
+                          
+            <div class = "container">
                 <!-- Comments Form -->
-                <div class="">
+                <div class="well">
                 
                     <h4>Leave a Comment:</h4>
-                    <form role="form">
+                    <form role="form" action = "" method ="post">
                        <div class="form-group">
-                            <input class="form-control">Author </input>
-                        </div>
+                            <label for="Author">Author</label>
+                            <input class="form-control" type="text" name = "comment_author" placeholder = "Some Author"></input>
                        <div class="form-group">
-                            <input class="form-control"> Email</input>
+                        <label for="Author">Email</label>
+                            <input class="form-control" type="email" name = "comment_email" placeholder = "someemail@mail.com"></input>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" rows="4" ></textarea>
+                        <label for="Comment">Your Comment</label>
+                            <textarea class="form-control" rows="4" type="text" name = "comment_content" placeholder = "Some comment text"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" name = "creat_com" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
 
@@ -129,9 +150,9 @@
                     </div>
 
                     </div>
-        <!-- /.row -->
-        </div>
+                <!-- /.row -->
+           </div>
         <hr h-25 >
-        </div>
+    </div>
         <?php include "includes/footer.php"; ?>
    
