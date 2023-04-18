@@ -1,5 +1,25 @@
 <?php include "includes/admin_header.php"; ?>
 <?php include "includes/admin_navigation.php"; ?>
+
+
+<?php
+if(isset($_POST['checkboxArray'])){
+foreach($_POST['checkboxArray'] as $postValueId){
+
+ $bulk_options =mysqli_real_escape_string($conn, $_POST['bulk_options']);
+
+ switch($bulk_options){
+
+case 'delete':
+  $query1 =  "DELETE FROM categories WHERE cat_id = {$postValueId}";
+  $delete_query = mysqli_query($conn, $query1);
+  confirm($delete_query);
+break;
+ }
+}
+}
+?>
+
 <div id="page-wrapper">
     <div class="container-fluid">
 
@@ -25,6 +45,18 @@
                 </div>
             </form>
         </div>
+                 <form action="" method="post">
+                 <table class="table table-bordered table-hover">
+                 <div id ="bulkOptionsContainer" class="col-xs-2">
+                 <select class="form-control" name="bulk_options" id="">
+                 <option value="">Select Option</option>
+                 <option value="delete">Delete</option>
+                 </select>
+                 </div>
+                 <div class="col-xs-4">
+                 <input type="submit" name="submit" class="btn btn-success" value="Apply">
+                 </div>
+                 </form>
           <?php   if (isset($_GET['edit'])) {
             $cat_id = $_GET['edit'];
             include "includes/update_categories.php"; }
@@ -32,14 +64,15 @@
         <table class="table table-bordered table-hover">
     <thead>
         <tr>
+            <th><input id="selectAllCheckBoxes" type="checkbox"></th>
             <th>ID</th>
             <th>Category Title</th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-        <?php findAllCategories();  ?>
-        <?php  deleteCategories();   ?>
+        <?php findAllCategories();?>
         </tr>
     </tbody>
       </table>

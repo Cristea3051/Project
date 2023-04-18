@@ -1,0 +1,54 @@
+/*form customizing*/
+#form{
+max-width: 50%;
+  position: relative;
+  margin-top: 30px;
+}
+#label{
+  margin-bottom: 10px;
+}
+#img{
+  display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#input_form{
+  padding: 15px;
+  border: 1px solid #198754;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #2C3E50;
+  text-align: center;
+}
+#select-flie{
+border: none;
+margin-bottom: 100px;
+}
+  /* Stiluri pentru imaginea de profil */
+  .profile-img
+   {
+    display: block;
+    margin: 0 auto;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  /* Stiluri pentru informaÈ›ii de profil */
+  #profile-info{
+    text-align: center;
+    padding: 20px;
+  }
+  #profile {
+    margin: 0 auto; 
+  }
+
+  #table{
+    width: 100%;
+  }
+

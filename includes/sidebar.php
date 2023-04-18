@@ -7,7 +7,7 @@
        <div class="input-group">
         <input name ="search" type="text" class="form-control">
         <span class="input-group-btn">
-        <button name = "submit" class="btn btn-default" type="submit">
+        <button name = "submit" class="btn btn-primary" type="submit">
                 <span class="glyphicon glyphicon-search"></span>
          </button>
         </span>
@@ -15,8 +15,33 @@
       </form> <!--search form -->
        <!-- /.input-group -->
     </div>
+<?php
+if(isset($_SESSION['user_role'])){
+    if (isset($_POST['login'])){
+
+echo "<ul><li><a href='admin'>Admin</a></li></ul>";
+  }
+}
+?>
+ <!-- Blog Login Well -->
+    <div class="well">
+        <h4>Login</h4>
+       <form action="includes/login.php" method= "post">
+       <div class="form-group">
+        <input name ="user_name" type="text" class="form-control" placeholder="Username">
+       </div>
+       <div class="form-group">
+        <input name ="user_password" type="password" class="form-control" placeholder="Password">
+       </div>
+
+       <span class="form-group-btn">
+       <button class="btn btn-primary" type="submit" name ="login">Login</button>
 
 
+       </span>
+      </form> <!--search form -->
+       <!-- /.input-group -->
+    </div>
 
 
 

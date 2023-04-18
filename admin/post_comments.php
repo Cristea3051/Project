@@ -1,6 +1,19 @@
-<?php
+<?php include "includes/admin_header.php"; ?>
+<?php include "includes/admin_navigation.php"; ?>
+<div id="page-wrapper">
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+
+        <div class="row">
+         <div class="col-lg-12">
+         <h1 class="page-header">
+          Welcome to admin page!
+         <small>Author</small>  </h1>
+
+         <?php
 if(isset($_POST['checkboxArray'])){
-foreach ($_POST['checkboxArray'] as $commentValueId){
+foreach($_POST['checkboxArray'] as $commentValueId){
 
  $bulk_options =mysqli_real_escape_string($conn, $_POST['bulk_options']);
 
@@ -28,6 +41,16 @@ break;
 }
 }
 
+function deletePostComment(){
+  global $conn;
+  if(isset($_GET['delete'])){
+      $get_comment_id = mysqli_real_escape_string($conn, $_GET['delete']);
+      $query =  "DELETE FROM comments WHERE comment_id = {$get_comment_id}";
+      mysqli_query($conn, $query);
+      header("Location:post_comments.php?id=". $_GET['id']."");
+  }
+      
+ }
 ?>
 <form action="" method="post">
 <div id ="bulkOptionsContainer" class="col-xs-2">
@@ -54,10 +77,19 @@ break;
                 <th>Status</th>
                 <th>Date</th>
                 
+                <th>Delete</th>
             </tr>
         </thead>
       
        <tbody>
-        <?php findAllComments() ?>
+        <?php findAllPostComments() ?>
+        <?php deletePostComment() ?>
+     
       </tbody>
        </table>
+
+       </div>
+       </div> 
+    </div>
+</div>
+ <?php include "includes/admin_footer.php"; ?>

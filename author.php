@@ -11,49 +11,45 @@
         
 
         <div class="row ">
-
             <!-- Blog Entries Column -->
             <div  class="col-md-8">
              <?php 
-            
-             if (isset($_GET['category'])){
-                $get_cat_id = $_GET['category'];
-                $sellect_all_posts = mysqli_query($conn,"SELECT * FROM posts WHERE post_category_id = $get_cat_id AND post_status = 'published'");
+
+             if (isset($_GET['author'])){
+                $p_author= $_GET['author'];
+                $sellect_all_posts = mysqli_query($conn, "SELECT * FROM posts WHERE post_author = '$p_author'");
+                if(!$sellect_all_posts){
+                     die('QUERY FAILED' . mysqli_error($conn));
+                } else{
                 while($row = mysqli_fetch_assoc($sellect_all_posts)){
                   $post_id = $row['post_id'];
                   $post_title = $row['post_title'];
                   $post_author = $row['post_author'];
                   $post_date = $row['post_date'];
                   $post_image = $row['post_image'];
-                  $post_content = substr(nl2br($row['post_content']),0, 200 );
+                  $post_content = nl2br($row['post_content']);
                 
                        ?>
 
-                
-
-                 
-               
-
                 <!-- First Blog Post -->
                 <h2>
-                    <a href="post.php?p_id_=<?php echo $post_id?>"><?php echo $post_title; ?></a>
+                    <a href="#"><?php echo $post_title; ?></a>
                 </h2>
                 <p class="lead">
                     by <a href="author.php?author=<?php echo $post_author?>"><?php echo $post_author; ?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date;?></p>
                 <hr>
-                <a href="post.php?p_id_=<?php echo $post_id?>">
-                <img class="img-responsive" src="images/<?php echo $post_image?>" alt=""></a>
+                <img class="img-responsive" src="images/<?php echo $post_image?>" alt="">
                 <hr>
                 <p><?php echo $post_content; ?></p>
-                <a class="btn btn-success" href="post.php?p_id_=<?php echo $post_id?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                
 
                 <hr>
-               <?php }
-             } else {
-                echo "Something wrong";
-             }
+               <?php 
+                }
+            }
+             } 
                ?>
             </div>
             <!-- Blog Sidebar Widgets Column -->
@@ -62,16 +58,17 @@
               
         </div>
         <!-- /.row -->
-        </div>
-        <hr h-25 >
-                       
-    
+        
+        
+                        <!-- Blog Comments -->
 
-                    </div>
-        <!-- /.row -->
-        </div>
+
+
+                <!-- Posted Comments -->
+                 
+                <!-- /.row -->
+           
         <hr h-25 >
-        </div>
-      
+    </div>
         <?php include "includes/footer.php"; ?>
    

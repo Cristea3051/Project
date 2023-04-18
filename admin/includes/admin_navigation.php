@@ -15,17 +15,19 @@
     </div>
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
+    <li><a href="">Users Online: <?php echo usersOnline(); ?> <span class="usersonline"></span></a></li>
+    
     <li><a href="../index.php">Home Site</a></li>
 
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+            <a href="profile.php" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $_SESSION['user_name']; ?><b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    <a href="profile.php"><i class="fa fa-fw fa-user"></i> Profile</a>
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    <a href="../includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                 </li>
             </ul>
         </li>
@@ -34,7 +36,7 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
             <li>
-                <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Dashboard</a>
+                <a href="index.php"><i class="fa fa-fw fa-desktop"></i> Dashboard</a>
             </li>
               <li>
                 <a href="javascript:;" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
@@ -59,15 +61,15 @@
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v "></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo" class="collapse">
                     <li>
-                        <a href="#">Dropdown Item</a>
+                        <a href="users.php">Wiew All Users</a>
                     </li>
                     <li>
-                        <a href="#">Dropdown Item</a>
+                        <a href="users.php?source=add_user">Add Users</a>
                     </li>
                 </ul>
             </li>
             <li class="active">
-                <a href="blank-page.html"><i class="fa fa-fw fa-user"></i>Profile</a>
+                <a href="profile.php"><i class="fa fa-fw fa-user"></i>Profile</a>
             </li>
         </ul>
     </div>

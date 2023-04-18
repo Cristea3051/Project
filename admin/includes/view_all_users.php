@@ -1,24 +1,24 @@
 <?php
 if(isset($_POST['checkboxArray'])){
-foreach ($_POST['checkboxArray'] as $commentValueId){
+foreach($_POST['checkboxArray'] as $userValueId){
 
  $bulk_options =mysqli_real_escape_string($conn, $_POST['bulk_options']);
 
  switch($bulk_options){
-case 'approved':
-  $query =  "UPDATE comments SET comment_status = '{$bulk_options}' WHERE comment_id = {$commentValueId}";
+case 'admin':
+  $query =  "UPDATE users SET user_role = '{$bulk_options}' WHERE user_id = {$userValueId}";
   $public= mysqli_query($conn, $query);
   confirm($public);
 break;
 
-case 'unapproved':
-  $query =  "UPDATE comments SET comment_status = '{$bulk_options}' WHERE comment_id = {$commentValueId}";
+case 'subscriber':
+  $query =  "UPDATE users SET user_role = '{$bulk_options}' WHERE user_id = {$userValueId}";
   $public= mysqli_query($conn, $query);
   confirm($public);
 break;
 
 case 'delete':
-  $query1 =  "DELETE FROM comments WHERE comment_id = {$commentValueId}";
+  $query1 =  "DELETE FROM users WHERE user_id = {$userValueId}";
   $delete_query = mysqli_query($conn, $query1);
   confirm($delete_query);
 break;
@@ -33,31 +33,35 @@ break;
 <div id ="bulkOptionsContainer" class="col-xs-2">
   <select class="form-control" name="bulk_options" id="">
 <option value="">Select Option</option>
-<option value="approved">approved</option>
-<option value="unapproved">unapproved</option>
+<option value="admin">Admin</option>
+<option value="Subscribber">Subscribber</option>
 <option value="delete">Delete</option>
   </select>
 
 </div>
 <div class="col-xs-4">
 <input type="submit" name="submit" class="btn btn-success" value="Apply">
+<a class="btn btn-primary" href="users.php?source=add_user">Add New User</a>
 </div>
 <table class="table table-bordered table-hover">
-        <thead >
+        <thead class="thead-dark">
             <tr>
                 <th><input id="selectAllCheckBoxes" type="checkbox"></th>
                 <th>Id</th>
-                <th>In response to</th>
-                <th>Author</th>
+                <th>User Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
                 <th>Email</th>
-                <th>Content</th>
-                <th>Status</th>
-                <th>Date</th>
-                
+                <th>Image</th>
+                <th>Role</th>
+                <th>Edit</th>
             </tr>
         </thead>
       
        <tbody>
-        <?php findAllComments() ?>
+
+<?php FindAllUsers();?>
+
       </tbody>
        </table>
+       </form>

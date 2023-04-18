@@ -17,8 +17,11 @@
              <?php 
 
              if (isset($_GET['p_id_'])){
-                $p_id = $_GET['p_id_'];
+                $p_id= $_GET['p_id_'];
                 
+                $query = "UPDATE posts SET post_view = post_view + 1 WHERE post_id = $p_id";
+                $create_view_query = mysqli_query($conn, $query);
+
                 $sellect_all_posts = mysqli_query($conn,"SELECT * FROM posts WHERE post_id = $p_id");
                 while($row = mysqli_fetch_assoc($sellect_all_posts)){
                   $post_id = $row['post_id'];
@@ -30,26 +33,19 @@
                 
                        ?>
 
-                
-
-                 
-                <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
-                </h1>
-
                 <!-- First Blog Post -->
                 <h2>
                     <a href="#"><?php echo $post_title; ?></a>
                 </h2>
                 <p class="lead">
-                    by <a href="index.php"><?php echo $post_author; ?></a>
+                    by <a href="author.php?author=<?php echo $post_author?>"><?php echo $post_author; ?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date;?></p>
                 <hr>
                 <img class="img-responsive" src="images/<?php echo $post_image?>" alt="">
                 <hr>
                 <p><?php echo $post_content; ?></p>
+                <a href="includes/download.php" class="btn btn-primary">Download PDF</a>
                 
 
                 <hr>
@@ -74,8 +70,9 @@
                             $com_author = $_POST['comment_author'];
                             $com_email = $_POST['comment_email'];
                             $com_content = $_POST['comment_content'];
-                            
-                            $query = "INSERT INTO comments( comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) 
+                            if(!empty($com_author) && !empty($com_email) && !empty($com_content)){
+
+                                    $query = "INSERT INTO comments( comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) 
                             VALUES ($p_id,'{$com_author}','{$com_email}','{$com_content}','unapproved',now())";
 
                        $create_com_query = mysqli_query($conn, $query);
@@ -83,7 +80,11 @@
                             die('QUERY FAILED' . mysqli_error($conn));
                         }
                        
+                          }else {
+                            echo "<script>alert('Fields cannot beempty!')</script>";
                           }
+                            }
+                        
                         ?>
                           
             <div class = "container">
@@ -110,49 +111,41 @@
                 <hr>
 
                 <!-- Posted Comments -->
+                 <?php  
+                    $query = "SELECT * FROM comments WHERE comment_post_id = $p_id  AND (comment_status = 'approved') ORDER BY comment_id DESC"; 
+                    $select_com_query = mysqli_query($conn, $query);
+                    if(!$select_com_query){
+                        die('Query failed ' . mysqli_error($conn));
 
+                    }while($row= mysqli_fetch_array($select_com_query)){
+                        $com_date = $row ['comment_date'];
+                        $com_content = $row ['comment_content'];
+                        $com_author = $row ['comment_author'];
+                     ?>
+                    
+                   
+                    
+                   
+
+                 
                 <!-- Comment -->
                 <div class="media">
+
                     <a class="pull-left" href="#">
                         <img class="media-object" src="http://placehold.it/64x64" alt="">
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading">Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
+                        <h4 class="media-heading"><?php echo $com_author;  ?>
+                            <small><?php echo $com_date; ?></small>
                         </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        <?php echo $com_content;  ?>
                     </div>
                 </div>
-
-                <!-- Comment -->
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
-                        </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        <!-- Nested Comment -->
-                        <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="http://placehold.it/64x64" alt="">
-                            </a>
-                            <div class="media-body">
-                                <h4 class="media-heading">Nested Start Bootstrap
-                                    <small>August 25, 2014 at 9:30 PM</small>
-                                </h4>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                            </div>
-                        </div>
-                        <!-- End Nested Comment -->
-                    </div>
-
-                    </div>
+                  <?php } ?>
                 <!-- /.row -->
            </div>
         <hr h-25 >
     </div>
+   
         <?php include "includes/footer.php"; ?>
    

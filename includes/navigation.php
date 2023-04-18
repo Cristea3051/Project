@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -22,12 +23,42 @@ while($row = mysqli_fetch_assoc($sellect_all_cat_querry)){
     echo "<li><a href='category.php?category=$cat_id'>{$cat_title}</a></li>";
 }
 
-
+if(isset($_SESSION['user_role'])){
+    if($_SESSION['user_role'] == 'admin'){
+      echo "<li><a href='admin'>Admin</a></li>";
+}
+ }
+    
 ?>
-                    <li>
-                        <a href="admin">Admin</a>
-                    </li>
-                </ul>
+
+<li><a href='registration.php'>register</a></li>
+
+
+<?php if(isset($_SESSION['user_role'])){
+   
+if(isset($_GET['p_id_'])){
+    $the_post_id = $_GET['p_id_'];
+    echo "<li><a href='admin/posts.php?source=edit_post&p_id = {$post_id}'>Edit Post</a></li>";
+}
+} ?>
+ <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $_SESSION['user_name']; ?><b class="caret"></b></a>
+ <ul class="dropdown-menu">
+                <li>
+              <?php  if(isset($_SESSION['user_role'])){
+    if($_SESSION['user_role'] == 'admin'){
+      echo "<li><a href='profile'>profile</a></li>";  
+}
+ }?>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                </li>
+            </ul>
+        </li>
+</li>
+
+             </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>

@@ -35,10 +35,7 @@ if (isset($_POST['submit'])){
                   $post_image = $row['post_image'];
                   $post_content = $row['post_content'];
 ?>
-                <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
-                </h1>
+               
 
                 <!-- First Blog Post -->
                 <h2>
@@ -66,6 +63,6 @@ if (isset($_POST['submit'])){
               
         </div>
         <!-- /.row -->
-        <hr>
-
+        <hr h-25>
+        
         <?php include "includes/footer.php"; ?>
