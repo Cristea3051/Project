@@ -406,7 +406,7 @@ return $count_users =  mysqli_num_rows($users_online);
 
 
      }
-     ob_end_flush();
+     ob_end_flush()
   
   ?>
 
